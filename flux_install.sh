@@ -105,7 +105,6 @@ if [ "$INSTALL_CUSTOM_NODES_DEPENDENCIES" = true ]; then
     "https://github.com/rgthree/rgthree-comfy"
     "https://github.com/pollockjj/ComfyUI-MultiGPU"
     "https://github.com/daxcay/ComfyUI-JDCN"
-    "https://github.com/chengzeyi/Comfy-WaveSpeed.git" # Note .git suffix
     "https://github.com/city96/ComfyUI-GGUF"
     # was-node-suite-comfyui is handled separately below
     "https://github.com/thu-ml/SageAttention.git" # Note .git suffix
@@ -174,8 +173,8 @@ mkdir -p "$MODELS_BASE_DIR/clip_vision"
 
 # Flux models (as per Colab cell dddddddddd)
 echo "Downloading Flux T5xXL FP16 text encoder..."
-wget -nv -c https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors -O "$MODELS_BASE_DIR/text_encoders/t5xxl_fp16.safetensors"
-wget -nv -c https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors -O "$MODELS_BASE_DIR/text_encoders/clip_I.safetensors"
+wget -nv -c https://huggingface.co/sirfalus/text_encoder/resolve/main/t5xxl_fp16.safetensors -O "$MODELS_BASE_DIR/text_encoders/t5xxl_fp16.safetensors"
+wget -nv -c https://huggingface.co/sirfalus/text_encoder/resolve/main/clip_l.safetensors -O "$MODELS_BASE_DIR/text_encoders/clip_I.safetensors"
 echo "Downloading Flux VAE (ae.safetensors)..."
 wget -nv -c https://huggingface.co/sirfalus/vae/resolve/main/ae.safetensors -O "$MODELS_BASE_DIR/vae/ae.safetensors"
 echo "Downloading Flux main model (flux1-dev.safetensors)..."
