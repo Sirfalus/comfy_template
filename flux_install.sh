@@ -153,6 +153,10 @@ if [ "$INSTALL_CUSTOM_NODES_DEPENDENCIES" = true ]; then
   SAGE_ATTENTION_DIR_NAME="SageAttention" # Directory name from its repo
   if [ -d "$SAGE_ATTENTION_DIR_NAME" ]; then
     echo "Installing $SAGE_ATTENTION_DIR_NAME (editable mode)..."
+    # Specify common CUDA architectures. Adjust the list (e.g., 7.0;7.5;8.0;8.6;9.0)
+    # based on the target GPUs you intend to use this image with.
+    export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.6}" # Example: For Ampere. Use a semicolon-separated list for multiple.
+    echo "Attempting SageAttention install with TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST"
     (cd "$SAGE_ATTENTION_DIR_NAME" && pip install -e .)
   else
     echo "Warning: $SAGE_ATTENTION_DIR_NAME directory not found for editable install."
