@@ -168,8 +168,8 @@ wget -nv -c https://huggingface.co/sirfalus/text_encoder/resolve/main/t5xxl_fp16
 wget -nv -c https://huggingface.co/sirfalus/text_encoder/resolve/main/clip_l.safetensors -O "$MODELS_BASE_DIR/text_encoders/clip_I.safetensors"
 echo "Downloading Flux VAE (ae.safetensors)..."
 wget -nv -c https://huggingface.co/sirfalus/vae/resolve/main/ae.safetensors -O "$MODELS_BASE_DIR/vae/ae.safetensors"
-echo "Downloading Flux main model (flux1-dev.safetensors)..."
-wget -nv -c https://huggingface.co/sirfalus/model/resolve/main/flux1-dev.safetensors -O "$MODELS_BASE_DIR/diffusion_models/flux1-dev.safetensors"
+# echo "Downloading Flux main model (flux1-dev.safetensors)..."
+# wget -nv -c https://huggingface.co/sirfalus/model/resolve/main/flux1-dev.safetensors -O "$MODELS_BASE_DIR/diffusion_models/flux1-dev.safetensors"
 
 # Add other model downloads here from the Colab script's commented out sections if desired
 # Example for one commented model:
