@@ -156,7 +156,18 @@ if [ "$INSTALL_CUSTOM_NODES_DEPENDENCIES" = true ]; then
     # Specify common CUDA architectures. Adjust the list (e.g., 7.0;7.5;8.0;8.6;9.0)
     # based on the target GPUs you intend to use this image with.
     export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.6}" # Example: For Ampere. Use a semicolon-separated list for multiple.
-    echo "Attempting SageAttention install with TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST"
+    
+    # Explicitly set CUDA_HOME and add its library and bin paths to relevant environment variables
+    export CUDA_HOME="/usr/local/cuda" # As indicated by the error log
+    export LD_LIBRARY_PATH="${CUDA_HOME}/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" # Prepend CUDA lib64 path
+    export PATH="${CUDA_HOME}/bin${PATH:+:${PATH}}" # Prepend CUDA bin path for nvcc etc.
+
+    echo "Attempting SageAttention install with:"
+    echo "  TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST"
+    echo "  CUDA_HOME=$CUDA_HOME"
+    echo "  LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+    echo "  PATH=$PATH"
+    
     (cd "$SAGE_ATTENTION_DIR_NAME" && pip install -e .)
   else
     echo "Warning: $SAGE_ATTENTION_DIR_NAME directory not found for editable install."
