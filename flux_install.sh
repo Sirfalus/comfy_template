@@ -175,6 +175,7 @@ mkdir -p "$MODELS_BASE_DIR/clip_vision"
 # Flux models (as per Colab cell dddddddddd)
 echo "Downloading Flux T5xXL FP16 text encoder..."
 wget -nv -c https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors -O "$MODELS_BASE_DIR/text_encoders/t5xxl_fp16.safetensors"
+wget -nv -c https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors -O "$MODELS_BASE_DIR/text_encoders/clip_I.safetensors"
 echo "Downloading Flux VAE (ae.safetensors)..."
 wget -nv -c https://huggingface.co/sirfalus/vae/resolve/main/ae.safetensors -O "$MODELS_BASE_DIR/vae/ae.safetensors"
 echo "Downloading Flux main model (flux1-dev.safetensors)..."
