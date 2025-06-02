@@ -107,7 +107,7 @@ if [ "$INSTALL_CUSTOM_NODES_DEPENDENCIES" = true ]; then
     "https://github.com/daxcay/ComfyUI-JDCN"
     "https://github.com/city96/ComfyUI-GGUF"
     # was-node-suite-comfyui is handled separately below
-    "https://github.com/thu-ml/SageAttention.git" # Note .git suffix
+    # "https://github.com/thu-ml/SageAttention.git" # Note .git suffix - REMOVED
   )
 
   for repo_url in "${CUSTOM_NODES_REPOS[@]}"; do
@@ -147,30 +147,6 @@ if [ "$INSTALL_CUSTOM_NODES_DEPENDENCIES" = true ]; then
   if [ -f "$WAS_NODE_DIR_NAME/requirements.txt" ]; then
     echo "Installing dependencies for $WAS_NODE_DIR_NAME..."
     pip install -r "$WAS_NODE_DIR_NAME/requirements.txt"
-  fi
-
-  # Special handling for SageAttention (editable install)
-  SAGE_ATTENTION_DIR_NAME="SageAttention" # Directory name from its repo
-  if [ -d "$SAGE_ATTENTION_DIR_NAME" ]; then
-    echo "Installing $SAGE_ATTENTION_DIR_NAME (editable mode)..."
-    # Specify common CUDA architectures. Adjust the list (e.g., 7.0;7.5;8.0;8.6;9.0)
-    # based on the target GPUs you intend to use this image with.
-    export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.6}" # Example: For Ampere. Use a semicolon-separated list for multiple.
-    
-    # Explicitly set CUDA_HOME and add its library and bin paths to relevant environment variables
-    export CUDA_HOME="/usr/local/cuda" # As indicated by the error log
-    export LD_LIBRARY_PATH="${CUDA_HOME}/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" # Prepend CUDA lib64 path
-    export PATH="${CUDA_HOME}/bin${PATH:+:${PATH}}" # Prepend CUDA bin path for nvcc etc.
-
-    echo "Attempting SageAttention install with:"
-    echo "  TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST"
-    echo "  CUDA_HOME=$CUDA_HOME"
-    echo "  LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-    echo "  PATH=$PATH"
-    
-    (cd "$SAGE_ATTENTION_DIR_NAME" && pip install -e .)
-  else
-    echo "Warning: $SAGE_ATTENTION_DIR_NAME directory not found for editable install."
   fi
 
   cd "$COMFYUI_DIR" # Return to the main ComfyUI directory
